@@ -647,7 +647,7 @@ module mpp_domains_mod
   integer,                                save :: n_addrs=0           ! num memory addresses used
 
   integer(LONG_KIND), parameter :: ADDR2_BASE=Z'0000000000010000'
-  integer, parameter :: MAX_ADDRS2=128
+  integer, parameter :: MAX_ADDRS2=512
   integer(LONG_KIND),dimension(MAX_ADDRS2),save :: addrs2_sorted=-9999  ! list of sorted local addrs
   integer,           dimension(-1:MAX_ADDRS2),save :: addrs2_idx=-9999  ! idx of addr2 assoicated w/ d_comm
   integer,           dimension(MAX_ADDRS2),save :: a2_salvage=-9999     ! freed indices of addr2
