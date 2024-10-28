@@ -272,7 +272,8 @@
 
  subroutine HORIZ_INTERP_NEW_2D_ (Interp, lon_in, lat_in, lon_out, lat_out,   &
                                  verbose, interp_method, num_nbrs, max_dist, &
-                                 src_modulo, mask_in, mask_out, is_latlon_in, is_latlon_out  )
+                                 src_modulo, mask_in, mask_out, is_latlon_in, is_latlon_out, &
+                                 new_search, no_crash_when_not_found  )
  type(horiz_interp_type), intent(inout)     :: Interp
  real(FMS_HI_KIND_), intent(in),  dimension(:,:)          :: lon_in , lat_in
  real(FMS_HI_KIND_), intent(in),  dimension(:,:)          :: lon_out, lat_out
@@ -284,6 +285,8 @@
  real(FMS_HI_KIND_), intent(in), dimension(:,:), optional :: mask_in
  real(FMS_HI_KIND_), intent(out),dimension(:,:), optional :: mask_out
  logical, intent(in),              optional :: is_latlon_in, is_latlon_out
+ logical, intent(in),              optional :: new_search
+ logical, intent(in),              optional :: no_crash_when_not_found
  logical           :: src_is_latlon, dst_is_latlon
  character(len=40) :: method
  integer, parameter                :: kindl = FMS_HI_KIND_ !< real kind size currently compiling
@@ -335,7 +338,7 @@
    case ("bilinear")
       Interp%interp_method = BILINEAR
       call horiz_interp_bilinear_new ( Interp, lon_in, lat_in, lon_out, lat_out, &
-                                        verbose, src_modulo )
+                                        verbose, src_modulo, new_search, no_crash_when_not_found )
    case default
       call mpp_error(FATAL,'when source grid are 2d, interp_method should be spherical or bilinear')
    end select
